@@ -7,3 +7,16 @@ before_install:
 
 script:
         - docker run rsilva25/docker-react2 npm run test -- --coverage
+        
+deploy:
+        - provider: elasticbeanstalk
+        - region: "us_east-1"
+        - app: "docker"
+        - env: "Docker-env"
+        - bucket_name: elasticbeanstalk-us-east-1-429903217431
+        - bucket_path: "docker"
+        on:
+        branch: master
+        access_key_id: $AWS_ACCESS_KEY
+        secret_access_key:
+        secure: "$AWS_SECRET_KEY"
